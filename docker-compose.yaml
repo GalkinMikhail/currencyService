@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  app:
+    image: 'currencyservice:latest'
+    build:
+      context: .
+    container_name: currencyserviceapp
+    ports:
+      - "8080:8080"
