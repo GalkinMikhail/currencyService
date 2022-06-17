@@ -17,5 +17,8 @@ App will be available at
 ## Request to receive gif  
 `GET api/gif/{currency}`  
 Instead of `currency`, you need to specify the currency code  
+Example:  
+`GET api/gif/RUB`  
+`GET api/gif/EUR` 
 
 
