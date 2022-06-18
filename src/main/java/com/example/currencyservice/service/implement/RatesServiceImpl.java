@@ -3,7 +3,9 @@ package com.example.currencyservice.service.implement;
 import com.example.currencyservice.client.FeignOpenExchangeRatesClient;
 import com.example.currencyservice.model.Rates;
 import com.example.currencyservice.service.interfaces.RatesService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 
-@Service
 @RequiredArgsConstructor
+@Service
+@Getter
+@Setter
 public class RatesServiceImpl implements RatesService {
     private Rates current;
     private Rates previous;
@@ -73,7 +77,7 @@ public class RatesServiceImpl implements RatesService {
         }
         if (toCheckRate != null && baseRate != null && defaultBaseRate != null) {
             result = new BigDecimal((defaultBaseRate / baseRate) * toCheckRate)
-                    .setScale(2, RoundingMode.UP)
+                    .setScale(4, RoundingMode.UP)
                     .doubleValue();
         }
         return result;

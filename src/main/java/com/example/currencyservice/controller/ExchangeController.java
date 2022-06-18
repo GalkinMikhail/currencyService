@@ -57,10 +57,10 @@ public class ExchangeController {
         else if (gifKey == -1){
             gifTag = this.broke;
         }
-        else if (gifKey == 404)
-            gifTag = this.error;
-        else
+        else if (gifKey == 0)
             gifTag = this.zero;
+        else
+            gifTag = this.error;
         return gifService.getGif(gifTag);
     }
 
