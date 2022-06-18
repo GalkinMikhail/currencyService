@@ -28,7 +28,6 @@ public class GifServiceImplTest {
     private GifFeignClient gifFeignClient;
 
 
-
     @Test
     public void getGif() {
         ResponseEntity<Map> testEntity = new ResponseEntity<>(new HashMap(), HttpStatus.OK);

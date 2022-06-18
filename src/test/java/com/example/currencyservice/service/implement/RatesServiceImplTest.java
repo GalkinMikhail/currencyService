@@ -2,13 +2,9 @@ package com.example.currencyservice.service.implement;
 
 import com.example.currencyservice.client.FeignOpenExchangeRatesClient;
 import com.example.currencyservice.model.Rates;
-import org.hamcrest.MatcherAssert;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,12 +13,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(SpringRunner.class)
@@ -43,7 +36,7 @@ public class RatesServiceImplTest {
 
 
     @BeforeEach
-    public void init(){
+    public void init() {
         int time = 1609459199;
         this.today = new Rates();
         this.today.setTimestamp(time);
@@ -72,24 +65,24 @@ public class RatesServiceImplTest {
 
     @Test
     public void compareRatesResultPositive() {
-        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(),anyString())).thenReturn(this.today);
-        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(),anyString(),anyString())).thenReturn(this.yesterday);
+        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(), anyString())).thenReturn(this.today);
+        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(), anyString(), anyString())).thenReturn(this.yesterday);
         int result = ratesService.getKey("cur3");
         assertEquals(1, result);
     }
 
     @Test
     public void compareRatesResultNegative() {
-        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(),anyString())).thenReturn(this.today);
-        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(),anyString(),anyString())).thenReturn(this.yesterday);
+        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(), anyString())).thenReturn(this.today);
+        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(), anyString(), anyString())).thenReturn(this.yesterday);
         int result = ratesService.getKey("cur2");
         assertEquals(-1, result);
     }
 
     @Test
     public void compareRatesResultZero() {
-        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(),anyString())).thenReturn(this.today);
-        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(),anyString(),anyString())).thenReturn(this.yesterday);
+        Mockito.when(feignOpenExchangeRatesClient.getLatestRates(anyString(), anyString())).thenReturn(this.today);
+        Mockito.when(feignOpenExchangeRatesClient.getHistoricalRates(anyString(), anyString(), anyString())).thenReturn(this.yesterday);
         int result = ratesService.getKey("cur1");
         assertEquals(0, result);
     }

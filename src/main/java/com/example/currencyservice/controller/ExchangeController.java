@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,14 +33,8 @@ public class ExchangeController {
     private String zero;
 
     @GetMapping(Urls.currencies.full)
-    public ResponseEntity<List<String>> getCurs(){
-        List<String> currencies = this.ratesService.getCurrencies();
-
-        if (currencies == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(currencies, HttpStatus.OK);
+    public ResponseEntity<List<String>> getCurs() {
+        return new ResponseEntity<>(this.ratesService.getCurrencies(), HttpStatus.OK);
     }
 
     @GetMapping(Urls.gif.target.full)
@@ -51,13 +44,11 @@ public class ExchangeController {
         if (currency != null) {
             gifKey = this.ratesService.getKey(currency);
         }
-        if (gifKey == 1){
+        if (gifKey == 1) {
             gifTag = this.rich;
-        }
-        else if (gifKey == -1){
+        } else if (gifKey == -1) {
             gifTag = this.broke;
-        }
-        else if (gifKey == 0)
+        } else if (gifKey == 0)
             gifTag = this.zero;
         else
             gifTag = this.error;

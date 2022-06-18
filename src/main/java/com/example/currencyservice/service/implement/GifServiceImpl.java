@@ -3,6 +3,7 @@ package com.example.currencyservice.service.implement;
 
 import com.example.currencyservice.client.GifFeignClient;
 import com.example.currencyservice.service.interfaces.GifService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,9 @@ public class GifServiceImpl implements GifService {
     public ResponseEntity<Map> getGif(String tag) {
         if (tag != null) {
             ResponseEntity<Map> result = gifFeignClient.getRandomGif(this.apiKey, tag);
-            result.getBody().put("result",tag);
+            result.getBody().put("result", tag);
             return result;
-        }
-        else
+        } else
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

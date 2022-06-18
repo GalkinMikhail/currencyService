@@ -14,10 +14,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RequiredArgsConstructor
@@ -38,12 +35,10 @@ public class RatesServiceImpl implements RatesService {
 
     @Override
     public List<String> getCurrencies() {
-        Map<String,String> temp = ResponseEntity.ok(feignOpenExchangeRatesClient.getCurrencies()).getBody();
-        if (temp != null) {
-            return new ArrayList<>(temp.keySet());
-        }
-        else
-            return new ArrayList<>();
+        Map<String, String> temp = ResponseEntity.ok(feignOpenExchangeRatesClient.getCurrencies()).getBody();
+        return temp != null
+                ? new ArrayList<>(temp.keySet())
+                : new ArrayList<>();
     }
 
     @Override
